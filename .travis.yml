@@ -7,17 +7,17 @@ php:
   - 7.3
 
 env:
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=true
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=true
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=true
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=true
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.6.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
-  - SOLR_VERSION=6.6.6 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=true
-  - SOLR_VERSION=6.6.6 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
+  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.6.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+  - SOLR_VERSION=6.6.6 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+  - SOLR_VERSION=6.6.6 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
 
 git:
   # The depth needs to be increased. The default of 50 leads to fatal: reference
@@ -61,16 +61,7 @@ install:
   - composer install
   #########################################
   # to be removed once #4153 is resolved
-  - composer require symfony/event-dispatcher:^4.0
-  - cd $TRAVIS_BUILD_DIR/..
-  - git clone --branch 9.x https://github.com/drush-ops/drush.git
-  - cd drush
-  - cat composer.json
-  - curl https://patch-diff.githubusercontent.com/raw/drush-ops/drush/pull/4153.patch | patch -p1
-  - cat composer.json
-  - git tag 9.8.0
-  - cd $TRAVIS_BUILD_DIR/../drupal
-  - composer config repositories.drush vcs $TRAVIS_BUILD_DIR/../drush
+  - composer config repositories.drush vcs https://github.com/mkalkbrenner/drush
   #########################################
   - composer config repositories.search_api_solr vcs $TRAVIS_BUILD_DIR
   - composer require drupal/search_api:1.x-dev drupal/search_api_autocomplete:1.x-dev drupal/search_api_solr:999.3.0 drupal/search_api_location:1.x-dev drupal/facets:1.x-dev drupal/geofield:1.x-dev drupal/composer_deploy drush/drush:$DRUSH_VERSION drupal/drush_language:1.x-dev solarium/solarium:"dev-master as 5.0.4"
@@ -171,10 +162,10 @@ script:
 matrix:
   exclude:
     - php: 7.1
-      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=true
+      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
     - php: 7.1
-      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
+      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
     - php: 7.1
-      env: SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=true
+      env: SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
     - php: 7.1
-      env: SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=~9.8.0 SOLR_CLOUD=false
+      env: SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
