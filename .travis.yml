@@ -57,12 +57,12 @@ install:
   #########################################
   # to be removed once #2876675 is resolved
   - curl https://www.drupal.org/files/issues/2019-08-15/2876675_8_fix_symfony_event_dispatcher_version_requirement.patch | patch -p1
+  - cd $TRAVIS_BUILD_DIR/..
+  - git clone https://github.com/mkalkbrenner/drush
+  - cd $TRAVIS_BUILD_DIR/../drupal
+  - composer config repositories.drush vcs $TRAVIS_BUILD_DIR/../drush
   #########################################
   - composer install
-  #########################################
-  # to be removed once #4153 is resolved
-  - composer config repositories.drush vcs https://github.com/mkalkbrenner/drush
-  #########################################
   - composer config repositories.search_api_solr vcs $TRAVIS_BUILD_DIR
   - composer require drupal/search_api:1.x-dev drupal/search_api_autocomplete:1.x-dev drupal/search_api_solr:999.3.0 drupal/search_api_location:1.x-dev drupal/facets:1.x-dev drupal/geofield:1.x-dev drupal/composer_deploy drush/drush:$DRUSH_VERSION drupal/drush_language:1.x-dev solarium/solarium:"dev-master as 5.0.4"
   - |
