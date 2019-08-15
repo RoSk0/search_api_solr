@@ -9,15 +9,8 @@ php:
 env:
   - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
   - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
   - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
   - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.6.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
-  - SOLR_VERSION=6.6.6 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
-  - SOLR_VERSION=6.6.6 DRUPAL_BRANCH=8.7.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
 
 git:
   # The depth needs to be increased. The default of 50 leads to fatal: reference
@@ -63,6 +56,7 @@ install:
   - composer config repositories.drush vcs $TRAVIS_BUILD_DIR/../drush
   #########################################
   - composer install
+  - composer require symfony/event-dispatcher:^4.0
   - composer config repositories.search_api_solr vcs $TRAVIS_BUILD_DIR
   - composer require drupal/search_api:1.x-dev drupal/search_api_autocomplete:1.x-dev drupal/search_api_solr:999.3.0 drupal/search_api_location:1.x-dev drupal/facets:1.x-dev drupal/geofield:1.x-dev drupal/composer_deploy drush/drush:$DRUSH_VERSION drupal/drush_language:1.x-dev solarium/solarium:"dev-master as 5.0.4"
   - |
