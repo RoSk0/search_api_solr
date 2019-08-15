@@ -71,11 +71,8 @@ before_script:
   - export SYMFONY_DEPRECATIONS_HELPER=disabled
   - export SIMPLETEST_DB=mysql://root:@localhost/drupal
   - export SIMPLETEST_BASE_URL=http://localhost:8888
-  # Start the built-in php web server (mysql is already started) and suppress
-  # web server access logs output.
-  - php -S localhost:8888 >& /dev/null &
   # Install the site.
-  - ./vendor/bin/drush -v site-install minimal --db-url=mysql://root:@localhost/drupal --yes
+  - ./vendor/bin/drush -v site-install minimal --db-url=$SIMPLETEST_DB --yes
   - ./vendor/bin/drush en --yes drush_language
   - ./vendor/bin/drush language-add ar
   - ./vendor/bin/drush language-add bg
@@ -138,6 +135,9 @@ before_script:
        $TRAVIS_BUILD_DIR/solr-${SOLR_VERSION}/bin/solr start -e techproducts || travis_terminate 1;
        $TRAVIS_BUILD_DIR/solr-${SOLR_VERSION}/bin/solr create -c d8 -d $TRAVIS_BUILD_DIR/solr-${SOLR_VERSION}/server/solr/d8/conf || travis_terminate 1;
     fi
+  # Start the built-in php web server (mysql is already started) and suppress
+  # web server access logs output.
+  - php -S localhost:8888 >& /dev/null &
 
 script:
   # Run the tests within the drupal directory.
