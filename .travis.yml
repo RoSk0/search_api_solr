@@ -7,10 +7,10 @@ php:
   - 7.3
 
 env:
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
-  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
-  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-9x_4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+  - SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-9x_4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-9x_4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+  - SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-9x_4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
 
 git:
   # The depth needs to be increased. The default of 50 leads to fatal: reference
@@ -51,7 +51,7 @@ install:
   # to be removed once #2876675 is resolved
   - curl https://www.drupal.org/files/issues/2019-08-15/2876675_8_fix_symfony_event_dispatcher_version_requirement.patch | patch -p1
   - cd $TRAVIS_BUILD_DIR/..
-  - git clone --branch 4152_fix_symfony_event_dispatcher_dependencies https://github.com/mkalkbrenner/drush
+  - git clone --branch 9x_4152_fix_symfony_event_dispatcher_dependencies https://github.com/mkalkbrenner/drush
   - cd $TRAVIS_BUILD_DIR/../drupal
   - composer config repositories.drush vcs $TRAVIS_BUILD_DIR/../drush
   #########################################
@@ -156,10 +156,6 @@ script:
 matrix:
   exclude:
     - php: 7.1
-      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
+      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-9x_4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
     - php: 7.1
-      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
-    - php: 7.1
-      env: SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=true
-    - php: 7.1
-      env: SOLR_VERSION=7.7.2 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
+      env: SOLR_VERSION=8.2.0 DRUPAL_BRANCH=8.8.x DRUSH_VERSION=dev-9x_4152_fix_symfony_event_dispatcher_dependencies SOLR_CLOUD=false
